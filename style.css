@@ -1,0 +1,138 @@
+ /* Reset styles */
+ * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #000;
+    color: rgba(0,68,173, 0.8);
+    text-align: center;
+    background-image: url('wedding-bg.png');
+    background-size: cover;
+}
+
+.container {
+    max-width: 90%;
+    width: 400px;
+    padding: 20px;
+    color: rgba(0,68,173, 0.8);
+}
+
+h1 {
+    font-family: "Herr Von Muellerhoff", cursive;
+    font-size: 5rem;
+    color: #ffff;
+    text-shadow: 2px 2px 6px rgba(0,68,173, 0.8);
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 1rem;
+    color: rgba(0,68,173, 0.8);
+    font-family: "Alice", serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    text-shadow: 2px 1px 1px rgba(255, 255, 255, 0.8);
+}
+
+.date {
+    font-size: 1.2rem;
+    color: rgb(255, 255, 255);
+    font-family: "Alice", serif;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-shadow: 2px 1px 1px rgba(0,68,173, 0.8);
+}
+
+.names {
+    font-size: 3rem;
+    color: rgba(0,68,173, 0.8);
+    text-shadow: -3px 1px 1px rgb(255, 255, 255);
+    margin: 15px 0;
+    font-family: "Montserrat", sans-serif;
+}
+
+.location {
+    font-family: "Montserrat", sans-serif;
+    text-align: left;  /* Align text to the left */
+}
+
+.location p {
+    margin: 5px 0;
+    color: #000000;
+    font-size: 14px;
+}
+
+.location a {
+    color: rgba(0,68,173, 0.8);
+    text-decoration: none;
+    font-size: 14px;
+}
+
+
+.schedule {
+    display: flex;
+    flex-direction: column;
+    background: #f1ede4;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 20px;
+    color: #0044cc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.schedule-item {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+.time {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #0044cc;
+    min-width: 80px;  /* Fixed width for the first column */
+    text-align: right;
+    margin-right: 10px;
+    font-family: "Teachers", sans-serif;
+}
+
+.description {
+    font-size: 0.9rem;
+    color: rgba(0,68,173, 0.8);
+    font-weight: bolder;
+    text-align: left;
+    line-height: 1.4;
+    font-family: "Old Standard TT", serif;
+    flex-grow: 1;  /* Make the description take the remaining space */
+}
+
+
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    h1 {
+        font-size: 4rem;
+    }
+    .names {
+        font-size: 2.5rem;
+    }
+    .schedule {
+        padding: 15px;
+    }
+    .time {
+        font-size: 0.9rem;
+    }
+    .description {
+        font-size: 0.8rem;
+    }
+}
