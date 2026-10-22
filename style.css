@@ -337,3 +337,318 @@ button, input, select { font: inherit; }
     :root { scroll-behavior: auto; }
     *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
+
+
+/* Decorative details: restrained stationery-inspired flourishes. */
+.section-heading h2 {
+    position: relative;
+    width: fit-content;
+    max-width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+}
+.section-heading h2::after {
+    display: block;
+    width: 76px;
+    height: 12px;
+    margin: 15px auto 0;
+    background:
+        linear-gradient(45deg, transparent 40%, var(--accent-dark) 40%, var(--accent-dark) 60%, transparent 60%) center / 8px 8px no-repeat,
+        linear-gradient(var(--line-color), var(--line-color)) center / 76px 1px no-repeat;
+    content: "";
+}
+.couple-section .person-portrait {
+    outline: 1px solid var(--line-color);
+    outline-offset: 6px;
+    box-shadow: 0 12px 28px rgba(23, 32, 51, .08);
+}
+.person-name::after {
+    display: block;
+    width: 28px;
+    height: 1px;
+    margin: 10px auto 0;
+    background: var(--line-color);
+    content: "";
+}
+.intro-message {
+    position: relative;
+    padding: 0 24px;
+}
+.intro-message::before,
+.intro-message::after {
+    color: var(--accent-color);
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 2rem;
+    line-height: 1;
+}
+.intro-message::before { content: "“"; margin-right: 5px; }
+.intro-message::after { content: "”"; margin-left: 5px; }
+.site-footer { border-top: 1px solid rgba(241, 237, 228, .24); }
+
+/* Motion is progressive enhancement: content remains visible without JavaScript. */
+.motion-ready [data-reveal] {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 650ms ease, transform 650ms cubic-bezier(.2, .65, .25, 1);
+}
+.motion-ready [data-reveal].is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+.motion-ready .couple-grid [data-reveal],
+.motion-ready .event-details [data-reveal],
+.motion-ready .schedule [data-reveal],
+.motion-ready .gallery [data-reveal] {
+    transition-delay: var(--reveal-delay, 0ms);
+}
+.hero-content > * {
+    animation: hero-arrive 750ms both;
+}
+.hero-content > *:nth-child(2) { animation-delay: 100ms; }
+.hero-content > *:nth-child(3) { animation-delay: 180ms; }
+.hero-content > *:nth-child(4) { animation-delay: 260ms; }
+.hero-content > *:nth-child(5) { animation-delay: 340ms; }
+.hero-content > *:nth-child(6) { animation-delay: 420ms; }
+.scroll-cue { animation: cue-arrive 800ms 600ms both; }
+.button { transition: background-color 220ms ease, border-color 220ms ease, transform 220ms ease, box-shadow 220ms ease; }
+.button:hover { box-shadow: 0 6px 18px rgba(0, 0, 0, .12); }
+
+@keyframes hero-arrive {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes cue-arrive {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+body.decorations-off .section-heading h2::after,
+body.decorations-off .couple-section .person-portrait,
+body.decorations-off .person-name::after,
+body.decorations-off .intro-message::before,
+body.decorations-off .intro-message::after {
+    outline: none;
+    box-shadow: none;
+}
+body.decorations-off .section-heading h2::after,
+body.decorations-off .person-name::after,
+body.decorations-off .intro-message::before,
+body.decorations-off .intro-message::after {
+    content: none;
+}
+body.motion-off .hero-content > *,
+body.motion-off .scroll-cue {
+    animation: none;
+}
+body.motion-off .button { transition: none; }
+
+@media (max-width: 480px) {
+    .couple-section .person-portrait { outline-offset: 4px; }
+    .intro-message { padding: 0 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .hero-content > *, .scroll-cue { animation: none !important; }
+    .motion-ready [data-reveal] {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}
+
+
+/* Envelope-opening experience */
+.envelope-intro {
+    position: fixed;
+    z-index: 1000;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    overflow: auto;
+    padding: 32px 18px;
+    background:
+        radial-gradient(ellipse at 50% 42%, rgba(20, 49, 91, .45), transparent 56%),
+        #080b12;
+    color: var(--paper-color);
+    opacity: 1;
+    transition: opacity 550ms ease, visibility 550ms ease;
+}
+.envelope-intro[hidden] { display: none !important; }
+.envelope-intro::before {
+    position: absolute;
+    z-index: 0;
+    inset: 0;
+    background:
+        radial-gradient(ellipse at 50% 42%, rgba(20, 49, 91, .45), transparent 56%),
+        #080b12;
+    content: "";
+    opacity: 1;
+    transition: opacity 850ms cubic-bezier(.22,.61,.36,1);
+    pointer-events: none;
+}
+.envelope-scene { position: relative; z-index: 1; transition: opacity 650ms ease, transform 950ms cubic-bezier(.22,.61,.36,1); }
+.envelope-intro.is-entering { background: transparent; }
+.envelope-intro.is-entering::before { opacity: 0; }
+.envelope-intro.is-entering .envelope-scene { opacity: 0; transform: translateY(-18px) scale(1.06); }
+.envelope-intro.is-leaving { opacity: 0; visibility: hidden; pointer-events: none; }
+.envelope-scene { width: min(100%, 560px); text-align: center; }
+.envelope-kicker {
+    margin: 0 0 38px;
+    color: rgba(241,237,228,.78);
+    font-size: .68rem;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+}
+.envelope {
+    position: relative;
+    width: min(100%, 430px);
+    aspect-ratio: 1.55 / 1;
+    margin: 0 auto;
+    perspective: 1200px;
+    filter: drop-shadow(0 28px 28px rgba(0,0,0,.32));
+}
+.envelope-back {
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgba(255,255,255,.2);
+    background: #d9cfbd;
+    border-radius: 3px;
+}
+.envelope-back::before {
+    position: absolute;
+    inset: 8px;
+    border: 1px solid rgba(0,49,111,.16);
+    content: "";
+}
+.envelope-letter {
+    position: absolute;
+    z-index: 1;
+    left: 7%;
+    right: 7%;
+    bottom: 4%;
+    display: flex;
+    min-height: 92%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 14px 28px;
+    background:
+        linear-gradient(135deg, rgba(255,255,255,.45), transparent 42%),
+        #f7f2e8;
+    color: #172033;
+    box-shadow: 0 3px 12px rgba(0,0,0,.13);
+    transform: translateY(0) scale(.94);
+    transition: transform 850ms cubic-bezier(.2,.75,.2,1) 160ms;
+}
+.letter-eyebrow {
+    margin: 0 0 8px;
+    font-size: .58rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+}
+.letter-title {
+    margin: 0;
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: clamp(1.5rem, 5vw, 2.3rem);
+    font-style: italic;
+    line-height: 1.2;
+}
+.letter-names {
+    margin: 7px 0;
+    color: var(--accent-dark);
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: clamp(1.5rem, 5.5vw, 2.5rem);
+    line-height: 1.2;
+}
+.letter-rule { width: 48px; height: 1px; margin: 6px 0; background: rgba(0,49,111,.38); }
+.letter-date { margin: 3px 0 0; font-size: .62rem; letter-spacing: .13em; text-transform: uppercase; }
+.envelope-pocket {
+    position: absolute;
+    z-index: 3;
+    inset: 0;
+    overflow: hidden;
+    background: linear-gradient(145deg, #e9dfce, #cfc2ad);
+    clip-path: polygon(0 0, 50% 57%, 100% 0, 100% 100%, 0 100%);
+    border-radius: 3px;
+}
+.envelope-pocket::after {
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgba(0,49,111,.16);
+    content: "";
+}
+.envelope::before {
+    position: absolute;
+    z-index: 4;
+    inset: 0;
+    background: linear-gradient(35deg, #d2c4af, #f0e6d6 48%, #c7b9a4);
+    clip-path: polygon(0 0, 50% 57%, 100% 0);
+    transform-origin: top center;
+    transition: transform 650ms cubic-bezier(.2,.7,.2,1), opacity 300ms ease 420ms;
+    content: "";
+}
+.envelope-seal {
+    position: absolute;
+    z-index: 5;
+    top: 45%;
+    left: 50%;
+    display: grid;
+    width: 62px;
+    aspect-ratio: 1;
+    place-items: center;
+    padding: 0;
+    border: 1px solid rgba(241,237,228,.48);
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 32% 25%, rgba(255,255,255,.25), transparent 30%),
+        radial-gradient(circle, #174d91, #00316f 68%, #001f4b);
+    color: #f4ead5;
+    box-shadow: 0 4px 12px rgba(0,0,0,.25), inset 0 0 0 3px rgba(241,237,228,.1);
+    cursor: pointer;
+    transform: translate(-50%, -50%);
+    transition: opacity 250ms ease, transform 450ms ease;
+}
+.envelope-seal span {
+    max-width: 48px;
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: .78rem;
+    line-height: 1.1;
+    overflow-wrap: anywhere;
+}
+.envelope-seal:focus-visible, .skip-envelope:focus-visible {
+    outline: 2px solid #f7f2e8;
+    outline-offset: 5px;
+}
+.envelope.is-open::before { transform: rotateX(180deg); opacity: .35; }
+.envelope.is-open .envelope-letter {
+    z-index: 6;
+    transform: translateY(-42%) scale(1.02);
+    box-shadow: 0 18px 36px rgba(0,0,0,.28);
+}
+.envelope.is-open .envelope-seal { opacity: 0; transform: translate(-50%, -80%) scale(.65); pointer-events: none; }
+.envelope-instruction { margin: 34px 0 12px; color: rgba(241,237,228,.84); font-size: .78rem; letter-spacing: .04em; }
+.skip-envelope {
+    padding: 6px 10px;
+    border: 0;
+    background: transparent;
+    color: rgba(241,237,228,.66);
+    font-size: .7rem;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    cursor: pointer;
+}
+body.envelope-active { overflow: hidden; }
+body.envelope-active > .site-header,
+body.envelope-active > main,
+body.envelope-active > .site-footer { visibility: hidden; }
+@media (max-width: 480px) {
+    .envelope-kicker { margin-bottom: 28px; font-size: .6rem; }
+    .envelope { width: min(100%, 360px); }
+    .envelope-letter { padding-right: 8px; padding-left: 8px; }
+    .envelope-seal { width: 54px; }
+    .envelope.is-open .envelope-letter { transform: translateY(-38%) scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .envelope-intro, .envelope-intro::before, .envelope-scene, .envelope::before, .envelope-letter, .envelope-seal {
+        transition: none !important;
+    }
+}

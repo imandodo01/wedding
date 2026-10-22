@@ -1,6 +1,82 @@
 (() => {
     const config = window.WEDDING_CONFIG || {};
     const sections = config.sections || {};
+    const effects = config.effects || {};
+    const envelopeIntro = document.getElementById("envelope-intro");
+    const envelope = document.getElementById("envelope");
+    const envelopeSeal = document.getElementById("envelope-seal");
+    const skipEnvelope = document.getElementById("skip-envelope");
+    const envelopeInstruction = document.getElementById("envelope-instruction");
+    const envelopeEnabled = effects.envelope === true && sections.hero !== false && !!envelopeIntro;
+
+    if (envelopeEnabled) {
+        document.body.classList.add("envelope-active");
+        envelopeIntro.hidden = false;
+
+        const names = document.getElementById("envelope-names");
+        const monogram = document.getElementById("envelope-monogram");
+        const date = document.getElementById("envelope-date");
+
+        if (names) names.textContent = config.coupleNames || "Our Wedding";
+        if (monogram) {
+            const people = (config.couple && Array.isArray(config.couple.people)) ? config.couple.people : [];
+            const initials = people
+                .filter(person => person && person.name)
+                .slice(0, 2)
+                .map(person => person.name.trim().charAt(0).toUpperCase());
+            monogram.textContent = initials.length ? initials.join(" & ") : "♥";
+        }
+        if (date) date.textContent = config.date || "";
+
+        const reducedMotion = window.matchMedia
+            && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        let envelopeDismissed = false;
+
+        const dismissEnvelope = (transition = "is-entering") => {
+            if (envelopeDismissed) return;
+            envelopeDismissed = true;
+
+            document.body.classList.remove("envelope-active");
+            envelopeIntro.classList.add(transition);
+
+            const heroAction = document.getElementById("hero-action");
+            const transitionDuration = reducedMotion
+                ? 0
+                : (transition === "is-entering" ? 850 : 560);
+
+            window.setTimeout(() => {
+                envelopeIntro.hidden = true;
+                envelopeIntro.classList.remove("is-entering", "is-leaving");
+                if (heroAction) heroAction.focus({ preventScroll: true });
+            }, transitionDuration);
+        };
+
+        if (envelopeSeal && envelope) {
+            envelopeSeal.addEventListener("click", () => {
+                if (envelopeDismissed || envelope.classList.contains("is-open")) return;
+
+                // Prevent the site's global smooth-scroll rule from delaying the reset.
+                const root = document.documentElement;
+                const previousScrollBehavior = root.style.scrollBehavior;
+                root.style.scrollBehavior = "auto";
+                window.scrollTo(0, 0);
+                root.style.scrollBehavior = previousScrollBehavior;
+
+                envelope.classList.add("is-open");
+                envelopeSeal.setAttribute("aria-expanded", "true");
+                if (envelopeInstruction) {
+                    envelopeInstruction.textContent = "Opening your invitation…";
+                }
+
+                // Let the envelope flap and letter begin moving before fading the scene.
+                window.setTimeout(() => dismissEnvelope("is-entering"), reducedMotion ? 0 : 320);
+            });
+        }
+
+        if (skipEnvelope) {
+            skipEnvelope.addEventListener("click", () => dismissEnvelope("is-leaving"));
+        }
+    }
     const byId = (id) => document.getElementById(id);
     const setText = (id, value) => {
         const element = byId(id);
@@ -282,4 +358,35 @@
             nav.appendChild(link);
         });
     }
-})();
+
+    // Apply optional decorative and motion enhancements after all configurable content is rendered.
+    document.body.classList.toggle("decorations-off", effects.decorations === false);
+    document.body.classList.toggle("motion-off", effects.animations === false);
+
+    const revealTargets = document.querySelectorAll(
+        ".section-heading, .couple-grid .person, .intro-message, .event-detail, " +
+        ".schedule-item, .gallery-item, .countdown-unit, .rsvp-panel, .gift-panel, .site-footer > *"
+    );
+    revealTargets.forEach((element, index) => {
+        element.setAttribute("data-reveal", "");
+        if (element.matches(".couple-grid .person, .event-detail, .schedule-item, .gallery-item, .countdown-unit")) {
+            element.style.setProperty("--reveal-delay", (index % 4) * 90 + "ms");
+        }
+    });
+
+    const reducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (effects.animations !== false && !reducedMotion && "IntersectionObserver" in window) {
+        document.body.classList.add("motion-ready");
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add("is-visible");
+                observer.unobserve(entry.target);
+            });
+        }, { threshold: 0.12, rootMargin: "0px 0px -35px 0px" });
+
+        revealTargets.forEach((element) => {
+            if (!element.closest("[hidden]")) revealObserver.observe(element);
+        });
+    }
+})(); 

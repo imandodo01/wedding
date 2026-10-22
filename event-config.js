@@ -90,6 +90,11 @@ window.WEDDING_CONFIG = {
         backgroundColor: "#000000",
         textColor: "#172033"
     },
+    effects: {
+        decorations: true,
+        animations: true,
+        envelope: true
+    },
     sections: {
         hero: true,
         countdown: false,
