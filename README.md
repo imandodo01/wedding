@@ -27,6 +27,7 @@ Some browser features behave more reliably when served over HTTP rather than ope
 - **Theme:** accent, paper, background, and text colors.
 - **Decorative details:** configurable ornamental dividers, portrait framing, and typography flourishes.
 - **Motion:** gentle cover entrance and scroll reveals, disabled when reduced motion is preferred.
+- **Envelope opening:** an optional interactive envelope-and-card intro before the invitation microsite.
 - **Responsive layout:** desktop/mobile breakpoints, keyboard-friendly links and form controls, and reduced-motion support.
 
 ## Configure a new event
@@ -75,11 +76,12 @@ Use `effects` to switch decorative details and animations on or off without edit
 ```js
 effects: {
     decorations: true,
-    animations: true
+    animations: true,
+    envelope: true
 }
 ```
 
-Animations respect the device's reduced-motion preference and fall back to visible content when IntersectionObserver is unavailable.
+Animations respect the device's reduced-motion preference and fall back to visible content when IntersectionObserver is unavailable. The envelope intro can be disabled with `envelope: false`; visitors can also skip it at any time.
 
 Use `sections` to enable or disable each major section without removing its markup:
 
