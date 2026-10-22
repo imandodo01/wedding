@@ -25,6 +25,8 @@ Some browser features behave more reliably when served over HTTP rather than ope
 - **RSVP:** an optional form that prepares a message and opens WhatsApp. It does not store submissions in a database.
 - **Gift details:** optional bank or delivery information.
 - **Theme:** accent, paper, background, and text colors.
+- **Decorative details:** configurable ornamental dividers, portrait framing, and typography flourishes.
+- **Motion:** gentle cover entrance and scroll reveals, disabled when reduced motion is preferred.
 - **Responsive layout:** desktop/mobile breakpoints, keyboard-friendly links and form controls, and reduced-motion support.
 
 ## Configure a new event
@@ -68,6 +70,17 @@ Use appropriately sized images and ensure you have permission to publish them.
 
 ### 4. Optional sections
 
+Use `effects` to switch decorative details and animations on or off without editing CSS:
+
+```js
+effects: {
+    decorations: true,
+    animations: true
+}
+```
+
+Animations respect the device's reduced-motion preference and fall back to visible content when IntersectionObserver is unavailable.
+
 Use `sections` to enable or disable each major section without removing its markup:
 
 ```js
@@ -107,4 +120,4 @@ This is an invitation microsite rather than a single card. The cover introduces 
 - No guest-specific access control, analytics, or automated calendar invitation.
 - No browser/mobile visual QA has been completed for this expanded version yet.
 
-Keep the existing feature branch and draft PR unmerged until the invitation has been tested on desktop and mobile and reviewed.
+The decorative and motion enhancements are progressive: the page remains readable if JavaScript motion features are unavailable, and animations are skipped when the visitor prefers reduced motion. Before publishing, replace sample event details and complete desktop/mobile visual QA.
