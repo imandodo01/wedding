@@ -5,58 +5,77 @@
     const envelopeIntro = document.getElementById("envelope-intro");
     const envelope = document.getElementById("envelope");
     const envelopeSeal = document.getElementById("envelope-seal");
-    const openInvitation = document.getElementById("open-invitation");
     const skipEnvelope = document.getElementById("skip-envelope");
     const envelopeInstruction = document.getElementById("envelope-instruction");
     const envelopeEnabled = effects.envelope === true && sections.hero !== false && !!envelopeIntro;
+
     if (envelopeEnabled) {
         document.body.classList.add("envelope-active");
         envelopeIntro.hidden = false;
+
         const names = document.getElementById("envelope-names");
         const monogram = document.getElementById("envelope-monogram");
         const date = document.getElementById("envelope-date");
+
         if (names) names.textContent = config.coupleNames || "Our Wedding";
         if (monogram) {
             const people = (config.couple && Array.isArray(config.couple.people)) ? config.couple.people : [];
-            const initials = people.filter(person => person && person.name).slice(0, 2).map(person => person.name.trim().charAt(0).toUpperCase());
+            const initials = people
+                .filter(person => person && person.name)
+                .slice(0, 2)
+                .map(person => person.name.trim().charAt(0).toUpperCase());
             monogram.textContent = initials.length ? initials.join(" & ") : "♥";
         }
         if (date) date.textContent = config.date || "";
-        const reducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-        const finishEnvelope = () => {
+
+        const reducedMotion = window.matchMedia
+            && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        let envelopeDismissed = false;
+
+        const dismissEnvelope = (transition = "is-entering") => {
+            if (envelopeDismissed) return;
+            envelopeDismissed = true;
+
             document.body.classList.remove("envelope-active");
-            envelopeIntro.classList.add("is-leaving");
+            envelopeIntro.classList.add(transition);
+
             const heroAction = document.getElementById("hero-action");
+            const transitionDuration = reducedMotion
+                ? 0
+                : (transition === "is-entering" ? 850 : 560);
+
             window.setTimeout(() => {
                 envelopeIntro.hidden = true;
-                envelopeIntro.classList.remove("is-leaving");
+                envelopeIntro.classList.remove("is-entering", "is-leaving");
                 if (heroAction) heroAction.focus({ preventScroll: true });
-            }, reducedMotion ? 0 : 560);
+            }, transitionDuration);
         };
-        const revealInvitation = () => {
-            document.body.classList.remove("envelope-active");
-            envelopeIntro.classList.add("is-entering");
-            const heroAction = document.getElementById("hero-action");
-            window.setTimeout(() => {
-                envelopeIntro.hidden = true;
-                envelopeIntro.classList.remove("is-entering");
-                if (heroAction) heroAction.focus({ preventScroll: true });
-            }, reducedMotion ? 0 : 1000);
-        };
-        if (envelopeSeal && envelope && openInvitation) {
+
+        if (envelopeSeal && envelope) {
             envelopeSeal.addEventListener("click", () => {
-                if (envelope.classList.contains("is-open")) return;
+                if (envelopeDismissed || envelope.classList.contains("is-open")) return;
+
+                // Prevent the site's global smooth-scroll rule from delaying the reset.
+                const root = document.documentElement;
+                const previousScrollBehavior = root.style.scrollBehavior;
+                root.style.scrollBehavior = "auto";
+                window.scrollTo(0, 0);
+                root.style.scrollBehavior = previousScrollBehavior;
+
                 envelope.classList.add("is-open");
                 envelopeSeal.setAttribute("aria-expanded", "true");
-                openInvitation.tabIndex = 0;
-                if (envelopeInstruction) envelopeInstruction.textContent = "Opening your invitation…";
-                // Keep the invitation at the top and begin the page transition immediately.
-                window.scrollTo(0, 0);
-                revealInvitation();
+                if (envelopeInstruction) {
+                    envelopeInstruction.textContent = "Opening your invitation…";
+                }
+
+                // Let the envelope flap and letter begin moving before fading the scene.
+                window.setTimeout(() => dismissEnvelope("is-entering"), reducedMotion ? 0 : 320);
             });
-            openInvitation.addEventListener("click", revealInvitation);
         }
-        if (skipEnvelope) skipEnvelope.addEventListener("click", finishEnvelope);
+
+        if (skipEnvelope) {
+            skipEnvelope.addEventListener("click", () => dismissEnvelope("is-leaving"));
+        }
     }
     const byId = (id) => document.getElementById(id);
     const setText = (id, value) => {
