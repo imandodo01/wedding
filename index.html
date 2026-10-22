@@ -3,47 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#f1ede4">
+    <meta name="theme-color" content="#f5eee7">
     <meta name="description" content="A wedding invitation.">
     <meta property="og:type" content="website">
     <meta property="og:title" content="Wedding Invitation">
     <meta property="og:description" content="We would love to celebrate with you.">
+    <meta property="og:image" content="">
     <title>Wedding Invitation</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Alice&family=Herr+Von+Muellerhoff&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Teachers:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Sacramento&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script src="event-config.js" defer></script>
     <script src="app.js" defer></script>
 </head>
 <body>
-    <main class="container">
-        <p id="invitation-eyebrow" class="subtitle"></p>
-        <h1 id="invitation-title">You're invited</h1>
-        <p id="invitation-subtitle" class="subtitle"></p>
-        <p id="event-date" class="date"></p>
-        <div class="names"><p id="couple-names"></p></div>
+    <a class="skip-link" href="#main-content">Skip to invitation</a>
+    <header class="site-header">
+        <a class="brand" href="#home" aria-label="Back to invitation top"><span id="brand-names">I & F</span></a>
+        <nav id="site-nav" class="site-nav" aria-label="Invitation sections"></nav>
+    </header>
 
-        <section id="invitation-message" class="invitation-message" aria-label="Invitation message" hidden></section>
-
-        <section id="location-section" class="location" aria-labelledby="location-heading">
-            <h2 id="location-heading">Celebrate with us</h2>
-            <p id="venue-name"></p>
-            <div id="venue-address"></div>
-            <a id="map-link" target="_blank" rel="noopener noreferrer" hidden>View on Google Maps</a>
+    <main id="main-content">
+        <section id="home" class="hero section-shell" aria-labelledby="invitation-title">
+            <div class="hero-image" role="img" aria-label="Wedding portrait"></div>
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <p id="invitation-eyebrow" class="eyebrow"></p>
+                <h1 id="invitation-title">The Wedding Of</h1>
+                <p id="couple-names" class="hero-names"></p>
+                <p id="invitation-subtitle" class="hero-subtitle"></p>
+                <p id="event-date" class="hero-date"></p>
+                <a id="hero-action" class="button button-light" href="#couple">View Invitation</a>
+            </div>
+            <a class="scroll-cue" href="#couple" aria-label="Scroll to the couple section">↓</a>
         </section>
 
-        <section id="schedule-section" class="schedule-section" aria-labelledby="schedule-heading">
-            <h2 id="schedule-heading">The day</h2>
+        <section id="countdown-section" class="countdown-section section-pad" aria-labelledby="countdown-heading" hidden>
+            <p class="eyebrow">The day is getting closer</p>
+            <h2 id="countdown-heading">Counting down to forever</h2>
+            <div id="countdown" class="countdown" aria-live="off"></div>
+        </section>
+
+        <section id="couple-section" class="couple-section section-pad" aria-labelledby="couple-heading">
+            <p class="eyebrow">Two hearts, one journey</p>
+            <h2 id="couple-heading">The Couple</h2>
+            <p id="couple-description" class="section-intro"></p>
+            <div id="couple" class="couple-grid"></div>
+            <p id="intro-message" class="intro-message"></p>
+        </section>
+
+        <section id="story-section" class="story-section section-pad" aria-labelledby="story-heading">
+            <div class="section-heading">
+                <p class="eyebrow">A little about us</p>
+                <h2 id="story-heading">Our Story</h2>
+            </div>
+            <div id="story-content" class="story-content"></div>
+        </section>
+
+        <section id="location-section" class="event-section section-pad" aria-labelledby="location-heading">
+            <div class="section-heading">
+                <p class="eyebrow">Save the date</p>
+                <h2 id="location-heading">Join Our Celebration</h2>
+                <p class="section-intro">We would be delighted to celebrate this special day with you.</p>
+            </div>
+            <div class="event-details">
+                <div class="event-detail">
+                    <span class="detail-icon" aria-hidden="true">✦</span>
+                    <h3>Date</h3>
+                    <p id="venue-date"></p>
+                </div>
+                <div class="event-detail">
+                    <span class="detail-icon" aria-hidden="true">◷</span>
+                    <h3>Time</h3>
+                    <p id="venue-time"></p>
+                </div>
+                <div class="event-detail event-detail-location">
+                    <span class="detail-icon" aria-hidden="true">⌖</span>
+                    <h3>Venue</h3>
+                    <p id="venue-name"></p>
+                    <div id="venue-address" class="venue-address"></div>
+                    <a id="map-link" class="text-link" target="_blank" rel="noopener noreferrer" hidden>Open map ↗</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="schedule-section" class="schedule-section section-pad" aria-labelledby="schedule-heading">
+            <div class="section-heading">
+                <p class="eyebrow">The celebration</p>
+                <h2 id="schedule-heading">Order of Events</h2>
+            </div>
             <div id="schedule" class="schedule"></div>
         </section>
 
-        <section id="gallery-section" class="gallery-section" aria-labelledby="gallery-heading" hidden>
-            <h2 id="gallery-heading">A few memories</h2>
+        <section id="gallery-section" class="gallery-section section-pad" aria-labelledby="gallery-heading" hidden>
+            <div class="section-heading">
+                <p class="eyebrow">Moments we treasure</p>
+                <h2 id="gallery-heading">Our Gallery</h2>
+            </div>
             <div id="gallery" class="gallery"></div>
         </section>
 
-        <footer id="invitation-footer" class="invitation-footer"></footer>
+        <section id="rsvp-section" class="rsvp-section section-pad" aria-labelledby="rsvp-heading" hidden>
+            <div class="rsvp-panel">
+                <p class="eyebrow">Kindly respond</p>
+                <h2 id="rsvp-heading">Will You Join Us?</h2>
+                <p id="rsvp-message" class="section-intro"></p>
+                <p id="rsvp-deadline" class="rsvp-deadline"></p>
+                <form id="rsvp-form" class="rsvp-form">
+                    <label for="guest-name">Your name</label>
+                    <input id="guest-name" name="guestName" autocomplete="name" required maxlength="100">
+                    <label for="guest-attendance">Will you attend?</label>
+                    <select id="guest-attendance" name="attendance" required>
+                        <option value="">Please choose</option>
+                        <option value="Yes, I will attend">Joyfully accepts</option>
+                        <option value="Sorry, I cannot attend">Regretfully declines</option>
+                    </select>
+                    <div id="guest-count-field">
+                        <label for="guest-count">Number of guests</label>
+                        <select id="guest-count" name="guestCount">
+                            <option value="1">1 guest</option>
+                            <option value="2">2 guests</option>
+                            <option value="3">3 guests</option>
+                            <option value="4">4 guests</option>
+                            <option value="5">5 guests</option>
+                        </select>
+                    </div>
+                    <button class="button" type="submit">Send RSVP via WhatsApp</button>
+                    <p id="rsvp-note" class="form-note"></p>
+                </form>
+            </div>
+        </section>
+
+        <section id="gift-section" class="gift-section section-pad" aria-labelledby="gift-heading" hidden>
+            <div class="gift-panel">
+                <p class="eyebrow">A kind thought</p>
+                <h2 id="gift-heading">Wedding Gift</h2>
+                <p id="gift-message" class="section-intro"></p>
+                <div id="gift-details" class="gift-details"></div>
+            </div>
+        </section>
     </main>
+
+    <footer class="site-footer">
+        <p class="footer-names" id="footer-names"></p>
+        <p id="invitation-footer"></p>
+        <a class="back-to-top" href="#home">Back to top ↑</a>
+    </footer>
 </body>
 </html>
