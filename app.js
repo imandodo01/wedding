@@ -282,4 +282,36 @@
             nav.appendChild(link);
         });
     }
-})();
+
+    // Apply optional decorative and motion enhancements after all configurable content is rendered.
+    const effects = config.effects || {};
+    document.body.classList.toggle("decorations-off", effects.decorations === false);
+    document.body.classList.toggle("motion-off", effects.animations === false);
+
+    const revealTargets = document.querySelectorAll(
+        ".section-heading, .couple-grid .person, .intro-message, .event-detail, " +
+        ".schedule-item, .gallery-item, .countdown-unit, .rsvp-panel, .gift-panel, .site-footer > *"
+    );
+    revealTargets.forEach((element, index) => {
+        element.setAttribute("data-reveal", "");
+        if (element.matches(".couple-grid .person, .event-detail, .schedule-item, .gallery-item, .countdown-unit")) {
+            element.style.setProperty("--reveal-delay", (index % 4) * 90 + "ms");
+        }
+    });
+
+    const reducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (effects.animations !== false && !reducedMotion && "IntersectionObserver" in window) {
+        document.body.classList.add("motion-ready");
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add("is-visible");
+                observer.unobserve(entry.target);
+            });
+        }, { threshold: 0.12, rootMargin: "0px 0px -35px 0px" });
+
+        revealTargets.forEach((element) => {
+            if (!element.closest("[hidden]")) revealObserver.observe(element);
+        });
+    }
+})(); 
