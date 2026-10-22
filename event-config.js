@@ -84,11 +84,11 @@ window.WEDDING_CONFIG = {
     footer: "With love and gratitude, Iman & Fitri",
     theme: {
         backgroundImage: "wedding-bg.png",
-        accentColor: "#76564a",
-        accentDark: "#50382f",
-        paperColor: "#fffaf4",
-        backgroundColor: "#f5eee7",
-        textColor: "#40332e"
+        accentColor: "rgba(0, 68, 173, 0.8)",
+        accentDark: "#00316f",
+        paperColor: "#f1ede4",
+        backgroundColor: "#000000",
+        textColor: "#172033"
     },
     sections: {
         hero: true,
