@@ -1,138 +1,161 @@
- /* Reset styles */
- * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+/* Base styles */
+:root {
+    --accent-color: rgba(0, 68, 173, 0.8);
+    --card-color: #f1ede4;
+    color-scheme: light;
 }
 
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
 body {
-    font-family: Arial, sans-serif;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    background: #000;
-    color: rgba(0,68,173, 0.8);
-    text-align: center;
-    background-image: url('wedding-bg.png');
+    padding: 32px 16px;
+    background-color: #000;
+    background-image: url("wedding-bg.png");
     background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: var(--accent-color);
+    text-align: center;
+    font-family: Arial, sans-serif;
 }
 
 .container {
-    max-width: 90%;
-    width: 400px;
-    padding: 20px;
-    color: rgba(0,68,173, 0.8);
+    width: min(100%, 480px);
+    padding: clamp(20px, 5vw, 36px);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(3px);
 }
 
 h1 {
-    font-family: "Herr Von Muellerhoff", cursive;
-    font-size: 5rem;
-    color: #ffff;
-    text-shadow: 2px 2px 6px rgba(0,68,173, 0.8);
     margin-bottom: 10px;
+    color: #fff;
+    font-family: "Herr Von Muellerhoff", cursive;
+    font-size: clamp(3.5rem, 12vw, 5rem);
+    font-weight: 400;
+    line-height: 1;
+    text-shadow: 2px 2px 6px var(--accent-color);
+}
+
+h2 {
+    margin-bottom: 12px;
+    font-family: "Alice", serif;
+    font-size: 1.1rem;
 }
 
 .subtitle {
-    font-size: 1rem;
-    color: rgba(0,68,173, 0.8);
+    margin-bottom: 6px;
+    color: var(--accent-color);
     font-family: "Alice", serif;
-    font-weight: bold;
+    font-size: 1rem;
+    font-weight: 700;
     text-transform: uppercase;
-    margin-bottom: 5px;
     text-shadow: 2px 1px 1px rgba(255, 255, 255, 0.8);
 }
 
 .date {
-    font-size: 1.2rem;
-    color: rgb(255, 255, 255);
-    font-family: "Alice", serif;
-    font-weight: bold;
     margin-bottom: 20px;
-    text-shadow: 2px 1px 1px rgba(0,68,173, 0.8);
+    color: #fff;
+    font-family: "Alice", serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-shadow: 2px 1px 1px var(--accent-color);
 }
 
 .names {
-    font-size: 3rem;
-    color: rgba(0,68,173, 0.8);
-    text-shadow: -3px 1px 1px rgb(255, 255, 255);
-    margin: 15px 0;
+    margin: 15px 0 24px;
+    color: var(--accent-color);
+    font-family: "Montserrat", sans-serif;
+    font-size: clamp(2rem, 8vw, 3rem);
+    overflow-wrap: anywhere;
+    text-shadow: -3px 1px 1px #fff;
+}
+
+.location, .invitation-message {
+    margin-top: 20px;
+    text-align: center;
     font-family: "Montserrat", sans-serif;
 }
 
-.location {
-    font-family: "Montserrat", sans-serif;
-    text-align: left;  /* Align text to the left */
-}
-
-.location p {
-    margin: 5px 0;
-    color: #000000;
-    font-size: 14px;
+.location p, .invitation-message {
+    margin: 6px 0;
+    color: #111;
+    font-size: 0.9rem;
+    line-height: 1.6;
 }
 
 .location a {
-    color: rgba(0,68,173, 0.8);
-    text-decoration: none;
-    font-size: 14px;
+    display: inline-block;
+    margin-top: 12px;
+    color: var(--accent-color);
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-underline-offset: 3px;
 }
 
+.schedule-section, .gallery-section {
+    margin-top: 24px;
+}
 
 .schedule {
     display: flex;
     flex-direction: column;
-    background: #f1ede4;
-    border-radius: 10px;
+    gap: 12px;
     padding: 20px;
-    margin-top: 20px;
-    color: #0044cc;
+    border-radius: 10px;
+    background: var(--card-color);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .schedule-item {
     display: flex;
-    flex-direction: row;
     align-items: flex-start;
-    margin-bottom: 10px;
+    gap: 12px;
+    text-align: left;
 }
 
 .time {
-    font-size: 1rem;
-    font-weight: bold;
-    color: #0044cc;
-    min-width: 80px;  /* Fixed width for the first column */
-    text-align: right;
-    margin-right: 10px;
+    min-width: 80px;
+    color: var(--accent-color);
     font-family: "Teachers", sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-align: right;
 }
 
 .description {
-    font-size: 0.9rem;
-    color: rgba(0,68,173, 0.8);
-    font-weight: bolder;
-    text-align: left;
-    line-height: 1.4;
+    flex: 1;
+    color: var(--accent-color);
     font-family: "Old Standard TT", serif;
-    flex-grow: 1;  /* Make the description take the remaining space */
+    font-size: 0.95rem;
+    font-weight: 700;
+    line-height: 1.5;
 }
 
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
 
+.gallery img { display: block; width: 100%; height: auto; border-radius: 8px; }
+.gallery figcaption { margin-top: 5px; font-size: 0.8rem; }
+.invitation-footer { margin-top: 24px; font-size: 0.85rem; }
+[hidden] { display: none !important; }
 
-/* Responsive adjustments */
 @media (max-width: 480px) {
-    h1 {
-        font-size: 4rem;
-    }
-    .names {
-        font-size: 2.5rem;
-    }
-    .schedule {
-        padding: 15px;
-    }
-    .time {
-        font-size: 0.9rem;
-    }
-    .description {
-        font-size: 0.8rem;
-    }
+    body { padding: 16px 10px; background-attachment: scroll; }
+    .container { padding: 20px 16px; }
+    .schedule { padding: 15px; }
+    .schedule-item { gap: 8px; }
+    .time { min-width: 70px; font-size: 0.85rem; }
+    .description { font-size: 0.85rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; }
 }
