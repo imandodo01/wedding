@@ -32,6 +32,8 @@
     if (ogTitle) ogTitle.content = document.title;
     const ogDescription = document.querySelector('meta[property="og:description"]');
     if (ogDescription) ogDescription.content = config.metaDescription || config.subtitle || "";
+    const ogImage = document.querySelector('meta[property="og:image"]');
+    if (ogImage && config.hero?.image) ogImage.content = config.hero.image;
     setText("brand-names", config.coupleNames || "Our Wedding");
     setText("invitation-eyebrow", config.eyebrow);
     setText("invitation-title", config.title || "You're invited");
@@ -253,8 +255,9 @@
                 countdown.appendChild(unit);
             });
         };
+        let countdownTimer;
         renderCountdown();
-        const countdownTimer = window.setInterval(renderCountdown, 1000);
+        countdownTimer = window.setInterval(renderCountdown, 1000);
         setVisible("countdown-section", true);
     } else {
         setVisible("countdown-section", false);
@@ -264,21 +267,17 @@
     if (nav) {
         nav.replaceChildren();
         [
-            ["couple-section", "The Couple"],
-            ["story-section", "Our Story"],
-            ["location-section", "The Event"],
-            ["schedule-section", "Schedule"],
-            ["gallery-section", "Gallery"],
-            ["rsvp-section", "RSVP"]
-        ].forEach(([sectionId, label]) => {
+            ["couple-section", "couple", "The Couple"],
+            ["story-section", "story-section", "Our Story"],
+            ["location-section", "location-section", "The Event"],
+            ["schedule-section", "schedule-section", "Schedule"],
+            ["gallery-section", "gallery-section", "Gallery"],
+            ["rsvp-section", "rsvp-section", "RSVP"]
+        ].forEach(([sectionId, targetId, label]) => {
             const section = byId(sectionId);
             if (!section || section.hidden) return;
             const link = make("a", "", label);
-            link.href = "#" + sectionId.replace("-section", "");
-            if (sectionId === "location-section") link.href = "#location-section";
-            if (sectionId === "schedule-section") link.href = "#schedule-section";
-            if (sectionId === "gallery-section") link.href = "#gallery-section";
-            if (sectionId === "rsvp-section") link.href = "#rsvp-section";
+            link.href = "#" + targetId;
             nav.appendChild(link);
         });
     }
