@@ -337,3 +337,120 @@ button, input, select { font: inherit; }
     :root { scroll-behavior: auto; }
     *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
+
+
+/* Decorative details: restrained stationery-inspired flourishes. */
+.section-heading h2 {
+    position: relative;
+    width: fit-content;
+    max-width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+}
+.section-heading h2::after {
+    display: block;
+    width: 76px;
+    height: 12px;
+    margin: 15px auto 0;
+    background:
+        linear-gradient(45deg, transparent 40%, var(--accent-dark) 40%, var(--accent-dark) 60%, transparent 60%) center / 8px 8px no-repeat,
+        linear-gradient(var(--line-color), var(--line-color)) center / 76px 1px no-repeat;
+    content: "";
+}
+.couple-section .person-portrait {
+    outline: 1px solid var(--line-color);
+    outline-offset: 6px;
+    box-shadow: 0 12px 28px rgba(23, 32, 51, .08);
+}
+.person-name::after {
+    display: block;
+    width: 28px;
+    height: 1px;
+    margin: 10px auto 0;
+    background: var(--line-color);
+    content: "";
+}
+.intro-message {
+    position: relative;
+    padding: 0 24px;
+}
+.intro-message::before,
+.intro-message::after {
+    color: var(--accent-color);
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 2rem;
+    line-height: 1;
+}
+.intro-message::before { content: "“"; margin-right: 5px; }
+.intro-message::after { content: "”"; margin-left: 5px; }
+.site-footer { border-top: 1px solid rgba(241, 237, 228, .24); }
+
+/* Motion is progressive enhancement: content remains visible without JavaScript. */
+.motion-ready [data-reveal] {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 650ms ease, transform 650ms cubic-bezier(.2, .65, .25, 1);
+}
+.motion-ready [data-reveal].is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+.motion-ready .couple-grid [data-reveal],
+.motion-ready .event-details [data-reveal],
+.motion-ready .schedule [data-reveal],
+.motion-ready .gallery [data-reveal] {
+    transition-delay: var(--reveal-delay, 0ms);
+}
+.hero-content > * {
+    animation: hero-arrive 750ms both;
+}
+.hero-content > *:nth-child(2) { animation-delay: 100ms; }
+.hero-content > *:nth-child(3) { animation-delay: 180ms; }
+.hero-content > *:nth-child(4) { animation-delay: 260ms; }
+.hero-content > *:nth-child(5) { animation-delay: 340ms; }
+.hero-content > *:nth-child(6) { animation-delay: 420ms; }
+.scroll-cue { animation: cue-arrive 800ms 600ms both; }
+.button { transition: background-color 220ms ease, border-color 220ms ease, transform 220ms ease, box-shadow 220ms ease; }
+.button:hover { box-shadow: 0 6px 18px rgba(0, 0, 0, .12); }
+
+@keyframes hero-arrive {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes cue-arrive {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+body.decorations-off .section-heading h2::after,
+body.decorations-off .couple-section .person-portrait,
+body.decorations-off .person-name::after,
+body.decorations-off .intro-message::before,
+body.decorations-off .intro-message::after {
+    outline: none;
+    box-shadow: none;
+}
+body.decorations-off .section-heading h2::after,
+body.decorations-off .person-name::after,
+body.decorations-off .intro-message::before,
+body.decorations-off .intro-message::after {
+    content: none;
+}
+body.motion-off .hero-content > *,
+body.motion-off .scroll-cue {
+    animation: none;
+}
+body.motion-off .button { transition: none; }
+
+@media (max-width: 480px) {
+    .couple-section .person-portrait { outline-offset: 4px; }
+    .intro-message { padding: 0 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .hero-content > *, .scroll-cue { animation: none !important; }
+    .motion-ready [data-reveal] {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}
