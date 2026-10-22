@@ -19,6 +19,28 @@
 </head>
 <body>
     <a class="skip-link" href="#main-content">Skip to invitation</a>
+    <section id="envelope-intro" class="envelope-intro" aria-label="Open your wedding invitation" hidden>
+        <div class="envelope-scene">
+            <p class="envelope-kicker">A little something, sealed with love</p>
+            <div class="envelope" id="envelope">
+                <div class="envelope-back"></div>
+                <div class="envelope-letter">
+                    <p class="letter-eyebrow">Together with our families</p>
+                    <p class="letter-title">You’re invited</p>
+                    <p class="letter-names" id="envelope-names">I &amp; F</p>
+                    <span class="letter-rule" aria-hidden="true"></span>
+                    <p class="letter-date" id="envelope-date"></p>
+                    <button id="open-invitation" class="open-invitation" type="button" tabindex="-1">Open Invitation <span aria-hidden="true">→</span></button>
+                </div>
+                <div class="envelope-pocket"></div>
+                <button id="envelope-seal" class="envelope-seal" type="button" aria-label="Break the seal and open the envelope">
+                    <span id="envelope-monogram">I &amp; F</span>
+                </button>
+            </div>
+            <p class="envelope-instruction" id="envelope-instruction">Tap the seal to open your invitation</p>
+            <button id="skip-envelope" class="skip-envelope" type="button">Skip intro</button>
+        </div>
+    </section>
     <header class="site-header">
         <a class="brand" href="#home" aria-label="Back to invitation top"><span id="brand-names">I & F</span></a>
         <nav id="site-nav" class="site-nav" aria-label="Invitation sections"></nav>
