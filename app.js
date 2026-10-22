@@ -72,7 +72,7 @@
         if (theme[key]) root.style.setProperty(property, theme[key]);
     });
     if (theme.backgroundImage) {
-        document.body.style.backgroundImage = 'linear-gradient(rgba(245,238,231,.88), rgba(245,238,231,.94)), url("' +
+        document.body.style.backgroundImage = 'linear-gradient(rgba(0,0,0,.68), rgba(0,0,0,.82)), url("' +
             theme.backgroundImage.replace(/["\\\\]/g, "\\$&") + '")';
     }
 
