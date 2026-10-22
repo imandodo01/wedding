@@ -22,6 +22,7 @@
             monogram.textContent = initials.length ? initials.join(" & ") : "♥";
         }
         if (date) date.textContent = config.date || "";
+        const reducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
         const finishEnvelope = () => {
             document.body.classList.remove("envelope-active");
             envelopeIntro.classList.add("is-leaving");
@@ -30,7 +31,17 @@
                 envelopeIntro.hidden = true;
                 envelopeIntro.classList.remove("is-leaving");
                 if (heroAction) heroAction.focus({ preventScroll: true });
-            }, window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 560);
+            }, reducedMotion ? 0 : 560);
+        };
+        const revealInvitation = () => {
+            document.body.classList.remove("envelope-active");
+            envelopeIntro.classList.add("is-entering");
+            const heroAction = document.getElementById("hero-action");
+            window.setTimeout(() => {
+                envelopeIntro.hidden = true;
+                envelopeIntro.classList.remove("is-entering");
+                if (heroAction) heroAction.focus({ preventScroll: true });
+            }, reducedMotion ? 0 : 1000);
         };
         if (envelopeSeal && envelope && openInvitation) {
             envelopeSeal.addEventListener("click", () => {
@@ -43,7 +54,7 @@
                     if (envelope.classList.contains("is-open")) openInvitation.focus({ preventScroll: true });
                 }, window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 900);
             });
-            openInvitation.addEventListener("click", finishEnvelope);
+            openInvitation.addEventListener("click", revealInvitation);
         }
         if (skipEnvelope) skipEnvelope.addEventListener("click", finishEnvelope);
     }
