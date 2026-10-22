@@ -92,7 +92,8 @@ window.WEDDING_CONFIG = {
     },
     effects: {
         decorations: true,
-        animations: true
+        animations: true,
+        envelope: true
     },
     sections: {
         hero: true,
