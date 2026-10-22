@@ -626,7 +626,11 @@ body.motion-off .button { transition: none; }
     outline-offset: 5px;
 }
 .envelope.is-open::before { transform: rotateX(180deg); opacity: .35; }
-.envelope.is-open .envelope-letter { transform: translateY(-32%) scale(1); }
+.envelope.is-open .envelope-letter {
+    z-index: 6;
+    transform: translateY(-42%) scale(1.02);
+    box-shadow: 0 18px 36px rgba(0,0,0,.28);
+}
 .envelope.is-open .envelope-seal { opacity: 0; transform: translate(-50%, -80%) scale(.65); pointer-events: none; }
 .envelope.is-open .open-invitation { opacity: 1; pointer-events: auto; transform: translate(-50%, 0); transition-delay: 650ms; }
 .envelope-instruction { margin: 34px 0 12px; color: rgba(241,237,228,.84); font-size: .78rem; letter-spacing: .04em; }
@@ -649,7 +653,7 @@ body.envelope-active > .site-footer { visibility: hidden; }
     .envelope { width: min(100%, 360px); }
     .envelope-letter { padding-right: 8px; padding-left: 8px; }
     .envelope-seal { width: 54px; }
-    .envelope.is-open .envelope-letter { transform: translateY(-28%) scale(1); }
+    .envelope.is-open .envelope-letter { transform: translateY(-38%) scale(1); }
 }
 @media (prefers-reduced-motion: reduce) {
     .envelope-intro, .envelope::before, .envelope-letter, .envelope-seal, .open-invitation {
