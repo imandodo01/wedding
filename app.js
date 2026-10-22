@@ -1,6 +1,52 @@
 (() => {
     const config = window.WEDDING_CONFIG || {};
     const sections = config.sections || {};
+    const effects = config.effects || {};
+    const envelopeIntro = document.getElementById("envelope-intro");
+    const envelope = document.getElementById("envelope");
+    const envelopeSeal = document.getElementById("envelope-seal");
+    const openInvitation = document.getElementById("open-invitation");
+    const skipEnvelope = document.getElementById("skip-envelope");
+    const envelopeInstruction = document.getElementById("envelope-instruction");
+    const envelopeEnabled = effects.envelope === true && sections.hero !== false && !!envelopeIntro;
+    if (envelopeEnabled) {
+        document.body.classList.add("envelope-active");
+        envelopeIntro.hidden = false;
+        const names = document.getElementById("envelope-names");
+        const monogram = document.getElementById("envelope-monogram");
+        const date = document.getElementById("envelope-date");
+        if (names) names.textContent = config.coupleNames || "Our Wedding";
+        if (monogram) {
+            const people = (config.couple && Array.isArray(config.couple.people)) ? config.couple.people : [];
+            const initials = people.filter(person => person && person.name).slice(0, 2).map(person => person.name.trim().charAt(0).toUpperCase());
+            monogram.textContent = initials.length ? initials.join(" & ") : "♥";
+        }
+        if (date) date.textContent = config.date || "";
+        const finishEnvelope = () => {
+            document.body.classList.remove("envelope-active");
+            envelopeIntro.classList.add("is-leaving");
+            const heroAction = document.getElementById("hero-action");
+            window.setTimeout(() => {
+                envelopeIntro.hidden = true;
+                envelopeIntro.classList.remove("is-leaving");
+                if (heroAction) heroAction.focus({ preventScroll: true });
+            }, window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 560);
+        };
+        if (envelopeSeal && envelope && openInvitation) {
+            envelopeSeal.addEventListener("click", () => {
+                if (envelope.classList.contains("is-open")) return;
+                envelope.classList.add("is-open");
+                envelopeSeal.setAttribute("aria-expanded", "true");
+                openInvitation.tabIndex = 0;
+                if (envelopeInstruction) envelopeInstruction.textContent = "Your invitation is ready";
+                window.setTimeout(() => {
+                    if (envelope.classList.contains("is-open")) openInvitation.focus({ preventScroll: true });
+                }, window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 900);
+            });
+            openInvitation.addEventListener("click", finishEnvelope);
+        }
+        if (skipEnvelope) skipEnvelope.addEventListener("click", finishEnvelope);
+    }
     const byId = (id) => document.getElementById(id);
     const setText = (id, value) => {
         const element = byId(id);
@@ -284,7 +330,6 @@
     }
 
     // Apply optional decorative and motion enhancements after all configurable content is rendered.
-    const effects = config.effects || {};
     document.body.classList.toggle("decorations-off", effects.decorations === false);
     document.body.classList.toggle("motion-off", effects.animations === false);
 
