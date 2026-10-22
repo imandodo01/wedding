@@ -49,10 +49,11 @@
                 envelope.classList.add("is-open");
                 envelopeSeal.setAttribute("aria-expanded", "true");
                 openInvitation.tabIndex = 0;
-                if (envelopeInstruction) envelopeInstruction.textContent = "Your invitation is ready";
+                if (envelopeInstruction) envelopeInstruction.textContent = "Opening your invitation…";
+                // Let the flap open and the card rise before revealing the full page.
                 window.setTimeout(() => {
-                    if (envelope.classList.contains("is-open")) openInvitation.focus({ preventScroll: true });
-                }, window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 900);
+                    if (envelope.classList.contains("is-open")) revealInvitation();
+                }, reducedMotion ? 0 : 1350);
             });
             openInvitation.addEventListener("click", revealInvitation);
         }
