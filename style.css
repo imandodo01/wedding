@@ -63,6 +63,12 @@ button, input, select { font: inherit; }
     letter-spacing: .08em;
 }
 .site-nav { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 18px; }
+.without-hero .site-header {
+    position: relative;
+    color: var(--accent-dark);
+    background: var(--paper-color);
+    border-bottom: 1px solid var(--line-color);
+}
 .site-nav a {
     color: inherit;
     font-size: .78rem;
@@ -75,8 +81,8 @@ button, input, select { font: inherit; }
 .hero {
     position: relative;
     display: grid;
-    min-height: min(850px, 100svh);
     min-height: min(850px, 100vh);
+    min-height: min(850px, 100svh);
     place-items: center;
     overflow: hidden;
     background: var(--accent-dark);
