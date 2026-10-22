@@ -57,6 +57,7 @@
         heroAction.href = /^#[a-z0-9_-]+$/i.test(hero.primaryActionTarget || "") ? hero.primaryActionTarget : "#couple";
     }
     setVisible("home", sections.hero !== false);
+    document.body.classList.toggle("without-hero", sections.hero === false);
 
     const theme = config.theme || {};
     const root = document.documentElement;
