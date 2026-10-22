@@ -50,10 +50,9 @@
                 envelopeSeal.setAttribute("aria-expanded", "true");
                 openInvitation.tabIndex = 0;
                 if (envelopeInstruction) envelopeInstruction.textContent = "Opening your invitation…";
-                // Let the flap open and the card rise before revealing the full page.
-                window.setTimeout(() => {
-                    if (envelope.classList.contains("is-open")) revealInvitation();
-                }, reducedMotion ? 0 : 1350);
+                // Keep the invitation at the top and begin the page transition immediately.
+                window.scrollTo(0, 0);
+                revealInvitation();
             });
             openInvitation.addEventListener("click", revealInvitation);
         }
