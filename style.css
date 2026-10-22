@@ -486,6 +486,7 @@ body.motion-off .button { transition: none; }
     pointer-events: none;
 }
 .envelope-scene { position: relative; z-index: 1; transition: opacity 650ms ease, transform 950ms cubic-bezier(.22,.61,.36,1); }
+.envelope-intro.is-entering { background: transparent; }
 .envelope-intro.is-entering::before { opacity: 0; }
 .envelope-intro.is-entering .envelope-scene { opacity: 0; transform: translateY(-18px) scale(1.06); }
 .envelope-intro.is-leaving { opacity: 0; visibility: hidden; pointer-events: none; }
