@@ -1,11 +1,11 @@
 :root {
-    --accent-color: #76564a;
-    --accent-dark: #50382f;
-    --paper-color: #fffaf4;
-    --background-color: #f5eee7;
-    --text-color: #40332e;
-    --muted-color: #786b63;
-    --line-color: rgba(80, 56, 47, .2);
+    --accent-color: rgba(0, 68, 173, 0.8);
+    --accent-dark: #00316f;
+    --paper-color: #f1ede4;
+    --background-color: #000000;
+    --text-color: #172033;
+    --muted-color: #4b5563;
+    --line-color: rgba(0, 68, 173, .22);
     --content-width: 1120px;
     color-scheme: light;
     scroll-behavior: smooth;
@@ -17,7 +17,7 @@ body {
     margin: 0;
     min-width: 320px;
     background-color: var(--background-color);
-    background-image: linear-gradient(rgba(245,238,231,.9), rgba(245,238,231,.96)), url("wedding-bg.png");
+    background-image: linear-gradient(rgba(0,0,0,.68), rgba(0,0,0,.82)), url("wedding-bg.png");
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -193,7 +193,7 @@ button, input, select { font: inherit; }
     place-items: center;
     overflow: hidden;
     margin: 0 auto 22px;
-    background: linear-gradient(145deg, #ead9c9, #c7aa95);
+    background: linear-gradient(145deg, #f1ede4, #cbd8ee);
     color: var(--accent-dark);
 }
 .person-portrait img { width: 100%; height: 100%; object-fit: cover; }
@@ -212,7 +212,7 @@ button, input, select { font: inherit; }
 }
 
 .story-section {
-    background: rgba(255,250,244,.72);
+    background: rgba(241,237,228,.94);
     text-align: center;
 }
 .story-content { max-width: 660px; margin: 0 auto; }
@@ -248,7 +248,7 @@ button, input, select { font: inherit; }
 
 .gallery { display: grid; max-width: var(--content-width); grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin: 0 auto; }
 .gallery-item { min-width: 0; margin: 0; }
-.gallery-item img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; background: #ead9c9; }
+.gallery-item img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; background: #cbd8ee; }
 .gallery-item figcaption { padding-top: 9px; color: var(--muted-color); font-size: .82rem; text-align: center; }
 
 .countdown-section { background: var(--accent-dark); color: white; text-align: center; }
@@ -260,7 +260,7 @@ button, input, select { font: inherit; }
 .countdown-label { color: rgba(255,255,255,.72); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; }
 .countdown-complete { font-family: "Playfair Display", Georgia, serif; font-size: 1.5rem; }
 
-.rsvp-section { background: rgba(255,250,244,.76); }
+.rsvp-section { background: rgba(241,237,228,.96); }
 .rsvp-panel, .gift-panel { max-width: 600px; margin: 0 auto; text-align: center; }
 .rsvp-form { display: grid; gap: 9px; margin: 28px auto 0; text-align: left; }
 .rsvp-form label { margin-top: 8px; color: var(--accent-dark); font-size: .82rem; font-weight: 700; }
