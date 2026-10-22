@@ -3,44 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Virtual Wedding Invitation</title>
+    <meta name="theme-color" content="#f1ede4">
+    <meta name="description" content="A wedding invitation.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Wedding Invitation">
+    <meta property="og:description" content="We would love to celebrate with you.">
+    <title>Wedding Invitation</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Alice&family=Herr+Von+Muellerhoff&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Teachers:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="style.css">
+    <script src="event-config.js" defer></script>
+    <script src="app.js" defer></script>
 </head>
 <body>
+    <main class="container">
+        <p id="invitation-eyebrow" class="subtitle"></p>
+        <h1 id="invitation-title">You're invited</h1>
+        <p id="invitation-subtitle" class="subtitle"></p>
+        <p id="event-date" class="date"></p>
+        <div class="names"><p id="couple-names"></p></div>
 
-<div class="container">
-    <h1>Save the Date</h1>
-    <p class="subtitle">We Are Getting Married</p>
-    <p class="date">07 December 2024</p>
+        <section id="invitation-message" class="invitation-message" aria-label="Invitation message" hidden></section>
 
-    <div class="names">
-        <p>IMAN & FITRI</p>
-    </div>
+        <section id="location-section" class="location" aria-labelledby="location-heading">
+            <h2 id="location-heading">Celebrate with us</h2>
+            <p id="venue-name"></p>
+            <p id="venue-address"></p>
+            <a id="map-link" target="_blank" rel="noopener noreferrer" hidden>View on Google Maps</a>
+        </section>
 
-    <div class="location">
-        <p>Location:</p>
-        <p>Ikan Bakar 1000 Pulau Restaurant</p>
-        <p style="margin-top: 20px;">Jl. Siliwangi No. 7J</p>
-        <p>Kec. Pancoran Mas, Kota Depok</p>
-        <p style="margin-bottom: 20px;">Jawa Barat</p>
-        <a href="https://maps.app.goo.gl/XoEKL4M8hwoFuZyXA" target="_blank">View on Google Maps</a>
-    </div>
+        <section id="schedule-section" class="schedule-section" aria-labelledby="schedule-heading">
+            <h2 id="schedule-heading">The day</h2>
+            <div id="schedule" class="schedule"></div>
+        </section>
 
-    <div class="schedule">
-        <div class="schedule-item">
-            <p class="time">12.00 PM</p>
-            <p class="description">Akad Nikah</p>
-        </div>
-        <div class="schedule-item">
-            <p class="time">13.00 PM</p>
-            <p class="description">Lunch, Messages to the Bride & Groom, Sharing happiness.</p>
-        </div>
-    </div>
-</div>
+        <section id="gallery-section" class="gallery-section" aria-labelledby="gallery-heading" hidden>
+            <h2 id="gallery-heading">A few memories</h2>
+            <div id="gallery" class="gallery"></div>
+        </section>
 
+        <footer id="invitation-footer" class="invitation-footer"></footer>
+    </main>
 </body>
 </html>
